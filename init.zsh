@@ -5,23 +5,6 @@ zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 
 setopt PROMPT_SUBST
 
-function git_dirty() {
-    if [[ $(git diff --stat) == '' ]]; then
-	print -P "%F{green}✓%f"
-    else
-	print "%F{red}✗%f"
-    fi
-}
-
-function is_git() {
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-	branch=$(git rev-parse --abbrev-ref HEAD)
-	print "%F{yellow}( ${branch} )%f $(git_dirty) "
-    else
-	print ''
-    fi
-}
-
 function rpromptf(){
     if [[ $(print -P '%?') == "0" ]]; then
 	print " 😺 "
