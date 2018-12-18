@@ -1,7 +1,8 @@
 function git_dirty() {
-    n_added=$(expr `git status --porcelain 2>/dev/null| grep "^M" | wc -l`)
-    n_modified=$(expr `git status --porcelain 2>/dev/null| grep "^ M" | wc -l`)
-    n_untracked=$(expr `git status --porcelain 2>/dev/null| grep "^??" | wc -l`)
+    porcelain=$(git status --porcelain 2>/dev/null)
+    n_added=$(expr `grep "^M" <<< $porcelain | wc -l`)
+    n_modified=$(expr `grep "^ M" <<< $porcelain | wc -l`)
+    n_untracked=$(expr `grep "^??" <<< $porcelain | wc -l`)
     if [[ "$(($n_added + $n_untracked + $n_modified))" == '0' ]]; then
 	print -P "%F{green}✓%f"
     else
