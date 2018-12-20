@@ -6,11 +6,11 @@ zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 setopt PROMPT_SUBST
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  HSTNAME="🖥  ssh://$(hostname)/"
+  HSTNAME="🖥  ssh://$HOSTNAME/"
 # many other tests omitted
 else
   case $(ps -o comm= -p $PPID) in
-    sshd|*/sshd) "🖥  ssh://$(hostname)/";;
+    sshd|*/sshd) "🖥  ssh://$HOSTNAME/";;
   esac
   HSTNAME=""
 fi
@@ -44,6 +44,6 @@ if ! zgen saved; then
     zgen save
 fi
 
-export PROMPT='%F{green}╭╴%f $(lpromptf)%F{magenta}[ %F{blue}$HSTNAME%F{magenta} %~ ]%f $(is_git)
+export PROMPT='%F{green}╭╴%f $(lpromptf)%F{magenta}[ %F{blue}$HSTNAME%F{magenta}%~ ]%f $(is_git)
 %F{green}╰➤%f [%F{green}%*%f] %F{red}•%f '
 export RPROMPT='$(rpromptf)'
