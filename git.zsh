@@ -13,8 +13,14 @@ function git_dirty() {
 function is_git() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
 	branch=$(git rev-parse --abbrev-ref HEAD)
-	print "%F{yellow}( ${branch} )%f $(git_dirty) "
+	_url=$(git remote get-url origin)
+	repo=${${_url#*:}%%.*}
+	print "%F{yellow}( ${repo}:${branch} )%f $(git_dirty) "
     else
-	print ''
+	if [ -n "$PRINT_DIR" ]; then
+	    print ''
+	else
+	    print 'Not a git repo'
+	fi
     fi
 }
