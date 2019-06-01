@@ -38,21 +38,20 @@ function lpromptf(){
 
 source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
-  # specify plugins here
-  zgen oh-my-zsh
-  zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/sudo
-  zgen oh-my-zsh plugins/command-not-found
-  zgen oh-my-zsh plugins/pip
-  zgen oh-my-zsh plugins/suse
-  zgen oh-my-zsh plugins/virtualenv
-  zgen load zsh-users/zsh-autosuggestions
-  zgen save
-  # generate the init script from plugins above
+    # specify plugins here
+    zgen oh-my-zsh
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/command-not-found
+    zgen oh-my-zsh plugins/pip
+    zgen oh-my-zsh plugins/virtualenv
+    zgen oh-my-zsh plugins/cargo
+    # generate the init script from plugins above
+    zgen load zsh-users/zsh-autosuggestions
+    zgen save
 fi
 
-if [ -n "$PRINT_DIR" ]; then    
-  PRMPT='%F{green}╭╴%f $(lpromptf)%F{magenta}[ %F{blue}$HSTNAME%F{magenta}%~ ]%f $(is_git)
+export PROMPT='%F{green}╭╴%f $(lpromptf)%F{green}[%F{blue}$HSTNAME%F{green} %~ ]%f $(is_git)
 %F{green}╰➤%f [%F{green}%*%f] %F{red}•%f '
 else
   PRMPT='%F{green}╭╴%f $(lpromptf)%F{magenta}[ $(is_git) ]%f
@@ -60,3 +59,7 @@ else
 fi
 export PROMPT=$PRMPT
 export RPROMPT='$(rpromptf)'
+
+bindkey -r "^[^["
+bindkey "^[^[[D" backward-word
+bindkey "^[^[[C" forward-word
