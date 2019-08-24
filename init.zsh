@@ -51,13 +51,8 @@ if ! zgen saved; then
     zgen save
 fi
 
-export PROMPT='%F{green}╭╴%f $(lpromptf)%F{green}[%F{blue}$HSTNAME%F{green} %~ ]%f $(is_git)
+export PROMPT='%F{green}╭╴%f $(lpromptf)%F{green}[%F{blue}$HSTNAME%f %F{red}|%f%F{green} %~ ]%f $(is_git)
 %F{green}╰➤%f [%F{green}%*%f] %F{red}•%f '
-else
-  PRMPT='%F{green}╭╴%f $(lpromptf)%F{magenta}[ $(is_git) ]%f
-%F{green}╰➤%f [%F{green}%*%f] %F{red}•%f '
-fi
-export PROMPT=$PRMPT
 export RPROMPT='$(rpromptf)'
 
 bindkey -r "^[^["
